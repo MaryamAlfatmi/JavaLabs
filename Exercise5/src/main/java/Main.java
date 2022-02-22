@@ -4,6 +4,7 @@ public class Main {
 
     static Scanner sc = new Scanner(System.in);
     static RentalFleet fleet = new RentalFleet();
+    static ReadWriteCSV read = new ReadWriteCSV();
     public static void main(String[] args){
 
         int choice =0;
@@ -15,10 +16,13 @@ public class Main {
                     "\n3. Return the vehicle "+
                     "\n4. View all the vehicles available for rental"+
                     "\n5. Cancel a vehicle from the fleet" +
-                    "\n6. Exit");
+                    "\n6. Export the rented vehicles data to a CSV file"+
+                    "\n7. Exit");
             System.out.println("Please choose an option");
             choice = sc.nextInt();
             switch(choice){
+                case 0:
+                    printMenu();
                 case 1:
                     sc.nextLine();
                     addVehicle();
@@ -31,42 +35,44 @@ public class Main {
                     sc.nextLine();
                     System.out.println("Enter the license number of a vehicle");
                     //String number = sc.nextLine();
-                    returnVehicle(sc.nextLine());
+                    fleet.returnVehicle(sc.nextLine());
+
                     break;
                 case 4 :
                     sc.nextLine();
-                    availableVehicles();
+                    fleet.availableVehicles();
                     break;
                 case 5 :
                     sc.nextLine();
                     System.out.println("Enter the license number for the cancellation of car from the fleet");
-                    cancelVehicle(sc.nextLine());
+                    fleet.cancelVehicle(sc.nextLine());
                     break;
                 case 6:
+                    sc.nextLine();
+                    fleet.writeToCsvFile();
+                    System.out.println("Data written to CSV file");
+                    printMenu();
+                    sc.nextLine();
+
+                case 7:
                     sc.nextLine();
                     choice = -1;
                 default:
                     sc.nextLine();
                     System.out.println("Invalid option. Please choose correct option.");
-
-
             }
-
         }
-
-
     }
 
-    private static void cancelVehicle(String number) {
-        fleet.cancelVehicle(number);
-    }
-
-    private static void availableVehicles() {
-        fleet.availableVehicles();
-    }
-
-    private static void returnVehicle(String number) {
-        fleet.returnVehicle(number);
+    private static void printMenu() {
+        System.out.println("Choose an option" +
+                "\n1. Add Vehicle to the Car Rental fleet" +
+                "\n2. Rent the vehicle. "+
+                "\n3. Return the vehicle "+
+                "\n4. View all the vehicles available for rental"+
+                "\n5. Cancel a vehicle from the fleet" +
+                "\n6. Export the rented vehicles data to a CSV file"+
+                "\n7. Exit");
     }
 
     private static void addVehicle() {
@@ -99,13 +105,10 @@ public class Main {
         int days = sc.nextInt();
         sc.nextLine();
         System.out.println("Choose a vehicle from a list of available vehicles. Enter the license plate number");
-        availableVehicles();
+        fleet.availableVehicles();
         String number = sc.nextLine();
         fleet.rentVehicle(name,date,days,number);
         System.out.println("The vehicle has been booked for you for "+days+" days.");
-
-
-
     }
     
 }

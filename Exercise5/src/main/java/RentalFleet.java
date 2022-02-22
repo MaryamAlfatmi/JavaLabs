@@ -72,4 +72,10 @@ public class RentalFleet {
       vehicles.remove(index);
 
     }
+
+
+    public void writeToCsvFile() {
+        ReadWriteCSV write = new ReadWriteCSV();
+        write.writeToCsvFile(vehicles);
+    }
 }

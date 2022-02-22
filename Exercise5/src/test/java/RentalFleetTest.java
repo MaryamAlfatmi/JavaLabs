@@ -6,6 +6,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class RentalFleetTest {
+    Vehicle v1 = Vehicle.addVehicle("Hyundai","i10",5,"MH 18 AD 0779");
+    Vehicle v2 = Vehicle.addVehicle("Hyundai","i10",5,"MH 18 AD 1234");
+    List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+    RentalFleet fleet = new RentalFleet();
 
     @Test
     public void availableVehicles() {
@@ -21,14 +25,14 @@ public class RentalFleetTest {
 
     @Test
     public void returnVehicle() {
+        String licensePlate = "MH 18 AD 0779";
+        fleet.returnVehicle(licensePlate);
+
 
     }
 
     @Test
     public void cancelVehicle() {
-        Vehicle v1 = Vehicle.addVehicle("Hyundai","i10",5,"MH 18 AD 0779");
-        Vehicle v2 = Vehicle.addVehicle("Hyundai","i10",5,"MH 18 AD 1234");
-        List<Vehicle> vehicleList = new ArrayList<Vehicle>();
         vehicleList.add(v1);
         vehicleList.add(v2);
         vehicleList.remove(v1);
